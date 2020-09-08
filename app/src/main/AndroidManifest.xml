@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.game_partner">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".SharedPreferences.MyApplication"
+        >
+        <activity android:name=".signin_pages.Signin_Seventh">
+
+        </activity>
+        <activity android:name=".signin_pages.Signin_Sixth" />
+        <activity android:name=".signin_pages.Signin_Fourth" />
+        <activity android:name=".signin_pages.Signin_Third" />
+        <activity android:name=".signin_pages.Signin_Second" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".signin_pages.Signin_Fifth" />
+        <activity android:name=".signin_pages.Signin_First">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="org.techtown.capturepicture.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+
+            </meta-data>
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="My_array">
+        <item>리그오브레전드</item>
+        <item>오버워치</item>
+        <item>피파온라인</item>
+        <item>배틀그라운드</item>
+        <item>던전앤파이터</item>
+        <item>메이플스토리</item>
+        <item>카트라이더</item>
+        <item>하스스톤</item>
+    </string-array>
+</resources>

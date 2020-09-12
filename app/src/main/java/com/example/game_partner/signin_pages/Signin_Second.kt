@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.game_partner.R
 import com.example.game_partner.SharedPreferences.MyApplication
 import com.example.game_partner.SharedPreferences.PreferenceUtil
 import kotlinx.android.synthetic.main.signin_second.*
+import kotlinx.android.synthetic.main.signin_sixth.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -40,21 +42,13 @@ class Signin_Second : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-               val id = s.toString()
-
                 if(isValidID(inputId.text.toString())) {
-                    if(id.length in 5..10)
                         inputId.setTextColor(Color.BLACK)
-                    //inputPw.setBackgroundColor(Color.TRANSPARENT)
-
                 } else {
                     inputId.setTextColor(Color.RED)
-                    //inputPw.setBackgroundColor(Color.rgb(255, 135, 135))
-
-                    inputId.setError("아이디 5~10글자")
+                    inputId.error = "아이디 5~10글자"
                 }
             }
-
         })
 
         inputPw.addTextChangedListener(object : TextWatcher {
@@ -65,42 +59,26 @@ class Signin_Second : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val id = s.toString()
-
                 if(isValidPassword(inputPw.text.toString())) {
-                    if(id.length in 8..15)
                     inputPw.setTextColor(Color.BLACK)
-
-                    //inputPw.setBackgroundColor(Color.TRANSPARENT)
                     } else {
                     inputPw.setTextColor(Color.RED)
-                    //inputPw.setBackgroundColor(Color.rgb(255, 135, 135))
-
-                    inputPw.setError("숫자, 영어, 특수문자 포함 8~15글자")
+                    inputPw.error = "숫자, 알파벳(소문자), 특수문자 포함 8~15글자"
                     }
                 }
         })
-        if (savedInstanceState != null) {
-            val savedId = savedInstanceState.getString("IdStr")
-            val savedPw = savedInstanceState.getString("PwStr")
-
-            inputId.setText(savedId)
-            inputPw.setText(savedPw)
-        }
 
         val toast = Toast.makeText(this, "아이디와 비밀번호를 입력해주세요", Toast.LENGTH_SHORT)
         val timer = object: CountDownTimer(800, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 toast.show()
             }
-
             override fun onFinish() {
                 toast.cancel()
             }
         }
         next2.setOnClickListener {
             if(isValidID(inputId.text.toString()) && isValidPassword(inputPw.text.toString())) {
-
                 val intent = Intent(this, Signin_Third::class.java)
 
                // intent.putExtra("Id", inputId.text.toString())
@@ -125,16 +103,15 @@ class Signin_Second : AppCompatActivity() {
         }
     }
     fun isValidID(text:String?):Boolean{
-        val pattern = Pattern.compile("^(?=.*[A-za-z])(?=.*[A-za-z0-9]).{4,9}.\$")
-        val matcher: Matcher = pattern.matcher(text)
-
-        return matcher.matches()
+        val regex = Regex("[a-zA-Z0-9]{5,12}")
+        val matched= regex.matches(ID.text.toString())
+        return matched
     }
 
     fun isValidPassword(text: String?): Boolean {
-        val pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&]).{7,14}.\$")
-        val matcher: Matcher = pattern.matcher(text)
+        val regex = Regex ("[a-z|0-9|\\W]{7,14}")
+        val matched= regex.matches(PW.text.toString())
 
-        return matcher.matches()
+        return matched
     }
 }

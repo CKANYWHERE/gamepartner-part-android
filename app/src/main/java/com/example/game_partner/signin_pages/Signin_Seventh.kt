@@ -9,12 +9,16 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.example.game_partner.R
+import com.example.game_partner.activity.MainActivity
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.signin_second.*
@@ -33,6 +37,8 @@ class Signin_Seventh : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin_seventh)
 
+        img_picture.setImageResource(0)
+
         settingPermission() // 권한체크 시작
 
         btn_picture.setOnClickListener {
@@ -41,6 +47,29 @@ class Signin_Seventh : AppCompatActivity() {
 
         loadImage_button.setOnClickListener {
             loadImage()
+        }
+
+
+        val toast = Toast.makeText(this, "사진을 넣어주세요", Toast.LENGTH_SHORT)
+        val timer = object: CountDownTimer(800, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                toast.show()
+            }
+
+            override fun onFinish() {
+                toast.cancel()
+            }
+        }
+
+        next7.setOnClickListener {
+            if(img_picture.drawable != null) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_right_to_zero,R.anim.slide_zero_to_left)
+            } else{
+                toast.show()
+                timer.start()
+            }
         }
 
         back6.setOnClickListener {

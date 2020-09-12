@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class PreferenceUtil(context: Context) {
-    private val prefs: SharedPreferences =
+    val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
 
     fun getString(key: String, defValue: String): String {
@@ -14,11 +14,19 @@ class PreferenceUtil(context: Context) {
         prefs.edit().putString(key, str).apply()
     }
 
-    fun putBoolean(key: String, defValue: Boolean): Boolean {
-        return prefs.getBoolean(key, defValue)
-    }
-    fun getBoolean(key: String, bool: Boolean) {
-        prefs.edit().putBoolean(key, bool).apply()
+    fun getInt(key: String, defValue: Int): Int {
+        return prefs.getInt(key, defValue).toInt()
     }
 
+    fun setInt(key: String, int:Int) {
+        prefs.edit().putInt(key, int).apply()
+    }
+
+    fun getLong(key:String, defValue: Long): Long{
+        return prefs.getLong(key, defValue).toLong()
+    }
+
+    fun setLong(key: String, long:Long) {
+        prefs.edit().putLong(key, long).apply()
+    }
 }
